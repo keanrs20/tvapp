@@ -146,11 +146,20 @@
       var script = document.createElement('script');
       script.src = url;
       script.async = true;
+      var timedOut = false;
+      /* Timeout de 8 segundos para evitar que la app se quede colgada */
+      var timer = setTimeout(function () {
+        timedOut = true;
+        if (document.head.contains(script)) document.head.removeChild(script);
+        reject(new Error('Timeout cargando ' + url));
+      }, 8000);
       script.onload = function () {
+        clearTimeout(timer);
         loadedScripts[url] = true;
         resolve();
       };
       script.onerror = function () {
+        clearTimeout(timer);
         reject(new Error('No se pudo cargar ' + url));
       };
       document.head.appendChild(script);

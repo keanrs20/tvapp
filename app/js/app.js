@@ -212,10 +212,11 @@
     app.innerHTML = topbar() +
       '<div class="loading"><div class="spinner"></div><p>Cargando catálogo…</p></div>';
 
-    return Repos.sync().catch(function () { /* los repos no bloquean el inicio */ }).then(function () {
-      if (currentRoute !== route) return;
+    return Promise.race([
+      Repos.sync().catch(function () { /* los repos no bloquean el inicio */ }).then(function () {
+        if (currentRoute !== route) return;
 
-      var enabled = Registry.enabled();
+        var enabled = Registry.enabled();
       if (!enabled.length) {
         app.innerHTML = topbar() +
           '<div class="page">' +
@@ -225,7 +226,7 @@
         return;
       }
 
-      return Registry.home().then(function (results) {
+      return U.withTimeout(Registry.home(), 10000, 'Timeout cargando catálogo').then(function (results) {
         if (currentRoute !== route) return;
 
         var html = '';
@@ -256,6 +257,9 @@
         }
 
         var failed = [];
+
+        /* Manejar resultados que pueden ser null o undefined */
+        results = results || [];
 
         results.forEach(function (result) {
           if (result.error) {
@@ -291,7 +295,14 @@
     }).catch(function (error) {
       if (currentRoute !== route) return;
       renderError('No se pudo cargar el inicio: ' + (error && error.message));
-    });
+    })
+  ], [
+    U.withTimeout(Promise.resolve(), 15000).then(function () {
+      if (currentRoute !== route) return;
+      var enabled = Registry.enabled();
+      app.innerHTML = topbar() + '<div class="page"><div class="empty">Tiempo de espera agotado. Proveedores activos: ' + U.esc(enabled.length) + '</div></div>';
+    })
+  ]);
   }
 
   /* ---------------- búsqueda ---------------- */
