@@ -856,8 +856,12 @@ video::cue {
   word-break: break-all;
 }
 .repo-error { margin-top: 4px; color: #ffb3bf; font-size: 14px; }
+.repo-warning { margin-top: 4px; color: #ffd08a; font-size: 14px; line-height: 1.4; }
+.repo-ok { margin-top: 4px; color: #7ede9f; font-size: 14px; }
 .repo-tag { margin-top: 4px; color: #6f7789; font-size: 13px; }
 
+.repo-actions { display: flex; align-items: center; flex: 0 0 auto; }
+.repo-actions .btn.tiny { margin-left: 12px; }
 .repo-row .switch { margin-left: 16px; }
 
 .chips {

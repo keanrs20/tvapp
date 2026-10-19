@@ -5,13 +5,13 @@
     "language": "es",
     "tvTypes": ["Movie", "TvSeries"],
     "iconUrl": "https://archive.org/services/img/BigBuckBunny_124",
-    "catalogUrl": "samples/catalogo-demo.json"
+    "catalogUrl": "catalogo-demo.json"
   },
   {
     "name": "Proveedor JavaScript de ejemplo",
     "description": "Proveedor escrito en JavaScript que se registra solo al cargarse.",
     "language": "es",
     "tvTypes": ["Movie"],
-    "scriptUrl": "samples/mi-proveedor.js"
+    "scriptUrl": "mi-proveedor.js"
   }
 ]

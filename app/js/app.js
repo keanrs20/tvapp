@@ -939,28 +939,53 @@
     app.innerHTML = topbar() + html;
   }
 
+  function repoProviders(url) {
+    return Registry.all().filter(function (provider) {
+      return provider.sourceRepo === url;
+    }).length;
+  }
+
   function reposSettingsHtml() {
     var repos = Store.repos();
 
     var list = repos.map(function (repo) {
+      var count = repoProviders(repo.url);
+      var status;
+
+      if (repo.error) {
+        status = '<div class="repo-error">Error: ' + U.esc(repo.error) + '</div>';
+      } else if (repo.warning) {
+        status = '<div class="repo-warning">' + U.esc(repo.warning) + '</div>';
+      } else if (count) {
+        status = '<div class="repo-ok">' + count + ' proveedor' + (count === 1 ? '' : 'es') +
+          ' cargado' + (count === 1 ? '' : 's') + ' · el contenido está en el Inicio</div>';
+      } else {
+        status = '<div class="repo-warning">Sin proveedores. Pulsa «Actualizar repositorios» y revisa el formato.</div>';
+      }
+
       return '<div class="repo-row">' +
         '<div class="repo-info">' +
           '<div class="repo-name">' + U.esc(repo.name || repo.url) + '</div>' +
           '<div class="repo-url">' + U.esc(repo.url) + '</div>' +
-          (repo.error ? '<div class="repo-error">Error: ' + U.esc(repo.error) + '</div>' : '') +
+          status +
         '</div>' +
-        '<button class="switch' + (repo.enabled === false ? '' : ' on') + '" data-focusable' +
-          ' data-action="toggle-repo" data-url="' + U.esc(repo.url) + '" role="switch"' +
-          ' aria-checked="' + (repo.enabled === false ? 'false' : 'true') + '"><span></span></button>' +
-        '<button class="btn tiny" data-focusable data-action="remove-repo" data-url="' + U.esc(repo.url) + '">Quitar</button>' +
+        '<div class="repo-actions">' +
+          (count ? '<button class="btn tiny" data-focusable data-action="go-home">Ver inicio</button>' : '') +
+          '<button class="switch' + (repo.enabled === false ? '' : ' on') + '" data-focusable' +
+            ' data-action="toggle-repo" data-url="' + U.esc(repo.url) + '" role="switch"' +
+            ' aria-checked="' + (repo.enabled === false ? 'false' : 'true') + '"><span></span></button>' +
+          '<button class="btn tiny" data-focusable data-action="remove-repo" data-url="' + U.esc(repo.url) + '">Quitar</button>' +
+        '</div>' +
       '</div>';
     }).join('');
 
     return '<section class="settings-card">' +
       '<h3>Repositorios</h3>' +
       '<p>Añade tu propio <b>repo.json</b> para traer proveedores o catálogos extra sin reinstalar la app. ' +
-      'Los plugins de CloudStream (<code>.cs3</code>) son código Android y no funcionan aquí; usa proveedores ' +
-      'JavaScript (<code>scriptUrl</code>) o catálogos JSON (<code>catalogUrl</code>).</p>' +
+      'El contenido de un repositorio aparece como <b>filas nuevas en la pantalla de Inicio</b>, no aquí.</p>' +
+      '<p><b>Importante:</b> los repositorios de CloudStream contienen plugins <code>.cs3</code>, que son código ' +
+      'Android y no pueden ejecutarse en un televisor Tizen. LatinoTV necesita un <code>repo.json</code> con ' +
+      'proveedores JavaScript (<code>scriptUrl</code>) o catálogos JSON (<code>catalogUrl</code>).</p>' +
       (list || '<p class="empty">Todavía no hay repositorios.</p>') +
       '<div class="inline-row">' +
         '<div class="field">' +
@@ -1208,8 +1233,13 @@
       U.toast('Actualizando repositorios…');
       Repos.sync(true).then(function () {
         renderSettings();
-        U.toast('Repositorios actualizados');
+        var total = Registry.all().filter(function (provider) { return provider.sourceRepo; }).length;
+        var warned = Store.repos().filter(function (item) { return item.warning; }).length;
+        if (warned && !total) U.toast('Los repositorios añadidos no traen proveedores compatibles (.cs3 no funciona).', 7000);
+        else U.toast('Repositorios actualizados · ' + total + ' proveedor(es) de repos.', 4000);
       });
+    } else if (action === 'go-home') {
+      go('home');
     } else if (action === 'toggle-sub-lang') {
       toggleSubtitleLanguage(element.getAttribute('data-lang'));
     } else if (action === 'toggle-sub-auto') {
@@ -1243,7 +1273,7 @@
   }
 
   function addRepo() {
-    var url = valueOf('repo-url');
+    var url = Repos.normalizeUrl(valueOf('repo-url'));
     if (!url) {
       U.toast('Escribe la URL del repo.json');
       return;
@@ -1255,10 +1285,18 @@
       return;
     }
 
-    U.toast('Repositorio añadido, cargando…');
+    U.toast('Cargando repositorio…');
     Repos.sync(true).then(function () {
+      var saved = Store.repos().filter(function (item) { return item.url === url; })[0];
+      var count = repoProviders(url);
+
       renderSettings();
-      U.toast('Repositorio listo');
+
+      if (!saved) return;
+      if (saved.error) U.toast('No se pudo cargar: ' + saved.error, 6000);
+      else if (saved.warning) U.toast(saved.warning, 7000);
+      else if (!count) U.toast('Repositorio añadido, pero no trae proveedores compatibles.', 6000);
+      else U.toast('Listo: ' + count + ' proveedor' + (count === 1 ? '' : 'es') + '. Míralos en Inicio.', 5000);
     });
   }
 

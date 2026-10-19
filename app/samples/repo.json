@@ -3,6 +3,6 @@
   "description": "Repositorio de prueba para LatinoTV. Puedes copiar este formato y alojarlo donde quieras.",
   "iconUrl": "https://archive.org/services/img/Sintel",
   "manifestVersion": 1,
-  "pluginLists": ["samples/plugins.json"],
+  "pluginLists": ["plugins.json"],
   "plugins": []
 }

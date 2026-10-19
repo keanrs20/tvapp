@@ -47,6 +47,32 @@
     return U.fetchJSON(url, { timeout: 10000 });
   }
 
+  /* Acepta enlaces tipo cloudstreamrepo:// y rutas relativas. */
+  function normalizeUrl(url) {
+    var value = String(url || '').trim();
+    value = value.replace(/^cloudstreamrepo:\/\//i, 'https://');
+    value = value.replace(/^csrepo:\/\//i, 'https://');
+    return value;
+  }
+
+  function absolute(base, ref) {
+    if (!ref) return ref;
+    if (/^[a-z][a-z0-9+.-]*:\/\//i.test(ref)) return ref;
+    try {
+      return new URL(ref, base).href;
+    } catch (error) {
+      return ref;
+    }
+  }
+
+  /* Los plugins de CloudStream son .cs3 (codigo Android): no se pueden usar. */
+  function isCloudStreamPlugin(plugin) {
+    if (!plugin) return true;
+    if (/\.cs3(\?|#|$)/i.test(plugin.url || '')) return true;
+    if (plugin.apiVersion != null) return true;
+    return !plugin.scriptUrl && !plugin.catalogUrl && !Array.isArray(plugin.plugins);
+  }
+
   function slug(text) {
     return String(text || '')
       .toLowerCase()
@@ -62,7 +88,7 @@
   function getPlugins(repo, force) {
     var cached = manifests[repo.url];
     if (cached && !force && (Date.now() - cached.at) < CACHE_MS) {
-      return Promise.resolve(cached.plugins);
+      return Promise.resolve(cached);
     }
 
     return fetchJSON(repo.url).then(function (manifest) {
@@ -74,19 +100,42 @@
 
       var jobs = [];
       if (Array.isArray(manifest.plugins)) {
-        jobs.push(Promise.resolve(manifest.plugins));
+        jobs.push(Promise.resolve({ base: repo.url, list: manifest.plugins }));
       }
-      (manifest.pluginLists || []).forEach(function (url) {
-        jobs.push(fetchJSON(url).catch(function () { return []; }));
+      (manifest.pluginLists || []).forEach(function (ref) {
+        var url = absolute(repo.url, ref);
+        jobs.push(
+          fetchJSON(url)
+            .then(function (list) {
+              return { base: url, list: Array.isArray(list) ? list : [] };
+            })
+            .catch(function () {
+              return { base: url, list: [] };
+            })
+        );
       });
 
       return Promise.all(jobs).then(function (groups) {
-        var plugins = [];
+        var usable = [];
+        var skipped = 0;
+
         groups.forEach(function (group) {
-          if (Array.isArray(group)) plugins = plugins.concat(group);
+          (group.list || []).forEach(function (plugin) {
+            if (!plugin) return;
+            if (isCloudStreamPlugin(plugin)) {
+              skipped++;
+              return;
+            }
+            var copy = Object.assign({}, plugin);
+            copy.scriptUrl = absolute(group.base, plugin.scriptUrl);
+            copy.catalogUrl = absolute(group.base, plugin.catalogUrl);
+            usable.push(copy);
+          });
         });
-        manifests[repo.url] = { at: Date.now(), plugins: plugins };
-        return plugins;
+
+        var cachedResult = { at: Date.now(), plugins: usable, skipped: skipped };
+        manifests[repo.url] = cachedResult;
+        return cachedResult;
       });
     });
   }
@@ -245,7 +294,19 @@
   }
 
   function syncRepo(repo, force) {
-    return getPlugins(repo, force).then(function (plugins) {
+    return getPlugins(repo, force).then(function (result) {
+      var plugins = result.plugins || [];
+      repo.skipped = result.skipped || 0;
+      repo.error = null;
+
+      if (repo.skipped) {
+        repo.warning = repo.skipped + ' plugin(s) de CloudStream (.cs3) ignorados: son código Android y no pueden ejecutarse en Tizen.';
+      } else if (!plugins.length) {
+        repo.warning = 'Este repositorio no trae proveedores compatibles. Debe usar scriptUrl (JavaScript) o catalogUrl (JSON).';
+      } else {
+        repo.warning = '';
+      }
+
       var jobs = plugins.map(function (plugin, index) {
         var id = pluginId(repo, plugin, index);
 
@@ -313,6 +374,7 @@
   global.Repos = {
     sync: sync,
     forget: forget,
+    normalizeUrl: normalizeUrl,
     catalogProvider: catalogProvider,
     loadedScripts: loadedScripts
   };

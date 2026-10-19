@@ -135,9 +135,13 @@ Escribe una URL `MP4` o `M3U8` y pulsa **Reproducir**. También puedes indicar l
 
 ## Repositorios (tu propio repo.json)
 
-En **Ajustes → Repositorios** pega la URL de tu `repo.json` y pulsa **Añadir**. La app lo descarga y registra los proveedores que contenga. Puedes desactivarlo o quitarlo cuando quieras.
+En **Ajustes → Repositorios** pega la URL de tu `repo.json` y pulsa **Añadir**. La app lo descarga y registra los proveedores que contenga. El **contenido aparece como filas nuevas en la pantalla de Inicio** (no dentro de Ajustes). Puedes desactivar, actualizar o quitar el repositorio cuando quieras.
 
-> **Importante:** los plugins `.cs3` de CloudStream son código Android y **no pueden ejecutarse en Tizen**. LatinoTV usa proveedores **JavaScript** (`scriptUrl`) o **catálogos JSON** (`catalogUrl`) con un formato parecido, para que te resulte familiar.
+También acepta enlaces del tipo `cloudstreamrepo://raw.githubusercontent.com/usuario/repo/builds/repo.json` (se convierten automáticamente a `https://`).
+
+> **Importante:** los repositorios de CloudStream contienen plugins `.cs3`, que son código **Android** compilado y **no pueden ejecutarse en un televisor Tizen**. Si añades uno, LatinoTV lo detecta y te avisa en Ajustes («N plugin(s) de CloudStream (.cs3) ignorados»), pero no cargará nada. LatinoTV usa proveedores **JavaScript** (`scriptUrl`) o **catálogos JSON** (`catalogUrl`) con un formato parecido a CloudStream, para que te resulte familiar.
+
+Las rutas relativas dentro de `repo.json` y `plugins.json` se resuelven **contra la URL del propio archivo**, así que puedes usar `"pluginLists": ["plugins.json"]` y `"catalogUrl": "catalogo.json"` si están en la misma carpeta.
 
 ### Formato de `repo.json`
 
