@@ -939,7 +939,7 @@
 
       '<section class="settings-card">' +
         '<h3>Acerca de LatinoTV</h3>' +
-        '<p>Versión 2.3.1 · Módulo de aplicación para TizenBrew.</p>' +
+        '<p>Versión 2.3.1-Cinecalidad · Módulo de aplicación para TizenBrew.</p>' +
         '<p class="legal">Esta app no incluye ni aloja contenido. Solo reproduce las fuentes que tú configures ' +
         '(tu servidor Jellyfin, tu lista M3U, tus repositorios o URLs directas). Agrega únicamente fuentes de las que ' +
         'tengas derechos o que tengan licencia abierta o sean de dominio público. Los subtítulos provienen de la API ' +
