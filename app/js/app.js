@@ -17,6 +17,11 @@
 
     Player.init();
 
+    /* Badge de versión siempre visible */
+    var badgeDiv = document.createElement('div');
+    badgeDiv.innerHTML = versionBadge();
+    document.body.appendChild(badgeDiv.firstChild);
+
     app.addEventListener('click', onClick);
     app.addEventListener('error', onImageError, true);
     document.addEventListener('keydown', onKeyDown, true);
@@ -149,6 +154,10 @@
         '<span class="clock">' + clockText() + '</span>' +
       '</div>' +
     '</header>';
+  }
+
+  function versionBadge() {
+    return '<div style="position:fixed;top:4px;right:8px;background:#c0392b;color:#fff;font-size:11px;padding:2px 8px;border-radius:3px;z-index:9999;">v2.3.1-Cinecalidad</div>';
   }
 
   function clockText() {
