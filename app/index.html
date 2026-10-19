@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LatinoTV</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app"></div>
+
+  <div id="player" class="player hidden" aria-hidden="true">
+    <video id="video" playsinline></video>
+
+    <div id="player-osd" class="player-osd">
+      <div class="osd-top">
+        <div class="osd-titles">
+          <div id="player-title" class="player-title"></div>
+          <div id="player-subtitle" class="player-subtitle"></div>
+        </div>
+        <div id="player-badge" class="player-badge hidden">EN VIVO</div>
+      </div>
+
+      <div class="osd-bottom">
+        <div class="progress-wrap">
+          <div class="progress"><div id="progress-fill" class="progress-fill"></div></div>
+          <div class="times">
+            <span id="time-current">00:00</span>
+            <span id="time-total">00:00</span>
+          </div>
+        </div>
+        <div class="osd-controls">
+          <span class="control">&#9664;&#9664; 10s</span>
+          <span id="ctrl-play" class="control control-main">&#9654;</span>
+          <span class="control">10s &#9654;&#9654;</span>
+          <span class="control hint">OK: play/pausa &nbsp;&middot;&nbsp; &#8592;/&#8594;: avanzar &nbsp;&middot;&nbsp; Atr&aacute;s: salir</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="player-message" class="player-message hidden"></div>
+    <div id="player-spinner" class="spinner player-spinner hidden"></div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="vendor/hls.min.js"></script>
+  <script src="js/util.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/providers.js"></script>
+  <script src="js/providers/demo.js"></script>
+  <script src="js/providers/jellyfin.js"></script>
+  <script src="js/providers/m3u.js"></script>
+  <script src="js/spatial.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

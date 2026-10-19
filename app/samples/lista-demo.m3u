@@ -1,0 +1,7 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="demo1" tvg-logo="https://archive.org/services/img/BigBuckBunny_124" group-title="Demo",Canal Big Buck Bunny
+https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8
+#EXTINF:-1 tvg-id="demo2" tvg-logo="https://archive.org/services/img/Sintel" group-title="Demo",Canal Sintel
+https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8
+#EXTINF:-1 tvg-id="demo3" tvg-logo="https://archive.org/services/img/ElephantsDream" group-title="Cine libre",Canal Elephants Dream
+https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8

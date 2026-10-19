@@ -1,0 +1,13 @@
+# Artefactos del asistente (no forman parte de la app)
+.agents/
+skills-lock.json
+
+# Sistema
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Paquetes / temporales
+node_modules/
+*.log
+*.zip
