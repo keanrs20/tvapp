@@ -1,6 +1,6 @@
 {
   "name": "latinotv",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "LatinoTV - catálogo y reproductor de video para TizenBrew",
   "packageType": "app",
   "appName": "LatinoTV",
@@ -13,7 +13,11 @@
     "MediaRewind",
     "MediaFastForward",
     "MediaTrackNext",
-    "MediaTrackPrevious"
+    "MediaTrackPrevious",
+    "ColorF0Red",
+    "ColorF1Green",
+    "ColorF2Yellow",
+    "ColorF3Blue"
   ],
   "license": "MIT"
 }

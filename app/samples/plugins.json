@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Catálogo de ejemplo",
+    "description": "Proveedor de solo datos: lee un catalogo.json con peliculas y series.",
+    "language": "es",
+    "tvTypes": ["Movie", "TvSeries"],
+    "iconUrl": "https://archive.org/services/img/BigBuckBunny_124",
+    "catalogUrl": "samples/catalogo-demo.json"
+  },
+  {
+    "name": "Proveedor JavaScript de ejemplo",
+    "description": "Proveedor escrito en JavaScript que se registra solo al cargarse.",
+    "language": "es",
+    "tvTypes": ["Movie"],
+    "scriptUrl": "samples/mi-proveedor.js"
+  }
+]

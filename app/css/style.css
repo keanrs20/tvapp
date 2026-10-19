@@ -700,3 +700,245 @@ button {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
+
+/* ---------- subtitle cues ---------- */
+
+video::cue {
+  font-size: 32px;
+  line-height: 1.35;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+}
+
+/* ---------- player subtitle panel ---------- */
+
+.player-panel {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 64px;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.panel-card {
+  width: 720px;
+  max-height: 74vh;
+  padding: 28px 30px;
+  border-radius: 18px;
+  background: #12151d;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-title {
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.panel-sub {
+  margin-top: 4px;
+  color: #9aa3b2;
+  font-size: 17px;
+}
+
+.panel-list {
+  margin-top: 18px;
+  overflow-y: auto;
+  max-height: 52vh;
+}
+.panel-list::-webkit-scrollbar { width: 0; }
+
+.panel-item {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 14px 18px;
+  border: 0;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+  text-align: left;
+}
+
+.panel-item .panel-item-label {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.panel-item .panel-item-sub {
+  display: block;
+  margin-top: 4px;
+  color: #9aa3b2;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.panel-item.focused { background: #fff; color: #0b0d12; }
+.panel-item.focused .panel-item-sub { color: #4b5563; }
+.panel-item.disabled { opacity: 0.55; }
+
+.panel-hint {
+  margin-top: 14px;
+  color: #6f7789;
+  font-size: 15px;
+}
+
+/* ---------- profiles / repos / chips ---------- */
+
+.profile-pill { display: flex; align-items: center; }
+
+.dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.tag {
+  margin-left: 8px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #ff3d5a;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+.settings-note {
+  max-width: 900px;
+  margin: 0 0 22px;
+  color: #9aa3b2;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.settings-card h4 {
+  margin: 0 0 4px;
+  font-size: 18px;
+}
+
+.settings-card .settings-head { margin-top: 20px; }
+
+.btn.small.danger { background: rgba(255, 61, 90, 0.22); }
+.btn.tiny {
+  padding: 9px 14px;
+  margin: 0 0 0 12px;
+  font-size: 14px;
+  border-radius: 10px;
+}
+
+.repo-row {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: #0c0f16;
+}
+
+.repo-info { flex: 1; min-width: 0; }
+.repo-name { font-size: 17px; font-weight: 600; }
+.repo-url {
+  margin-top: 3px;
+  color: #6f7789;
+  font-size: 14px;
+  word-break: break-all;
+}
+.repo-error { margin-top: 4px; color: #ffb3bf; font-size: 14px; }
+.repo-tag { margin-top: 4px; color: #6f7789; font-size: 13px; }
+
+.repo-row .switch { margin-left: 16px; }
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 14px 0 4px;
+}
+
+.chip {
+  margin: 0 10px 10px 0;
+  padding: 12px 20px;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: #0c0f16;
+  color: #c3cad6;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.chip.on {
+  background: #ff3d5a;
+  color: #fff;
+}
+
+.chip.focused { border-color: #ffffff; }
+
+.profile-card.active { outline: 2px solid rgba(255, 61, 90, 0.55); }
+
+.profile-head { display: flex; align-items: center; }
+.profile-head .dot { width: 18px; height: 18px; margin-right: 14px; }
+
+.profile-card .actions { margin-top: 18px; margin-bottom: 0; }
+
+/* ---------- season tabs / episode extras ---------- */
+
+.season-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px 0 16px;
+}
+
+.season-tab {
+  margin: 0 12px 12px 0;
+  padding: 12px 22px;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.09);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.season-tab.active { background: #ff3d5a; }
+.season-tab.focused { border-color: #ffffff; }
+
+.ep-still {
+  flex: 0 0 auto;
+  width: 132px;
+  height: 74px;
+  margin-right: 16px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: #1a1f2b;
+}
+
+.episode .ep-watched { color: #46d07a; font-weight: 700; }
+
+.ep-progress {
+  display: block;
+  height: 5px;
+  margin-top: 8px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.25);
+  overflow: hidden;
+}
+
+.ep-progress i {
+  display: block;
+  height: 100%;
+  background: #ff3d5a;
+}
+
+.episode.focused .ep-progress { background: rgba(0, 0, 0, 0.2); }
+

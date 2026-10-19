@@ -1,0 +1,66 @@
+{
+  "sections": [
+    {
+      "id": "animadas",
+      "title": "Películas (ejemplo)",
+      "items": [
+        {
+          "id": "cat-sintel",
+          "title": "Sintel (desde catálogo)",
+          "year": 2010,
+          "runtime": 888,
+          "poster": "https://archive.org/services/img/Sintel",
+          "backdrop": "https://archive.org/services/img/Sintel",
+          "type": "movie",
+          "description": "Ejemplo de película servida desde un catalogo.json. Fuente: Blender Foundation, Creative Commons BY 3.0.",
+          "genres": ["Animación", "Fantasía"],
+          "url": "https://archive.org/download/Sintel/sintel-2048-surround.mp4"
+        },
+        {
+          "id": "cat-bbb",
+          "title": "Big Buck Bunny (desde catálogo)",
+          "year": 2008,
+          "runtime": 596,
+          "poster": "https://archive.org/services/img/BigBuckBunny_124",
+          "type": "movie",
+          "description": "Ejemplo de película con enlace directo MP4.",
+          "url": "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4"
+        }
+      ]
+    },
+    {
+      "id": "series",
+      "title": "Series (ejemplo)",
+      "items": [
+        {
+          "id": "cat-serie",
+          "title": "Serie desde catálogo",
+          "year": 2024,
+          "poster": "https://archive.org/services/img/ElephantsDream",
+          "type": "series",
+          "description": "Ejemplo de serie con temporadas y episodios en un catalogo.json.",
+          "episodes": [
+            {
+              "id": "cat-serie-1",
+              "title": "Episodio uno",
+              "season": 1,
+              "episode": 1,
+              "overview": "Primer episodio del catálogo.",
+              "still": "https://archive.org/services/img/BigBuckBunny_124",
+              "url": "https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4"
+            },
+            {
+              "id": "cat-serie-2",
+              "title": "Episodio dos",
+              "season": 1,
+              "episode": 2,
+              "overview": "Segundo episodio del catálogo.",
+              "still": "https://archive.org/services/img/Sintel",
+              "url": "https://archive.org/download/Sintel/sintel-2048-surround.mp4"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -46,6 +46,18 @@
     });
   }
 
+  function remove(id) {
+    registry = registry.filter(function (provider) {
+      return provider.id !== id;
+    });
+  }
+
+  function removeBySource(sourceRepo) {
+    registry = registry.filter(function (provider) {
+      return provider.sourceRepo !== sourceRepo;
+    });
+  }
+
   function home() {
     var providers = enabled();
     var jobs = providers.map(function (provider) {
@@ -89,6 +101,8 @@
     all: all,
     get: find,
     enabled: enabled,
+    remove: remove,
+    removeBySource: removeBySource,
     home: home,
     search: search
   };
