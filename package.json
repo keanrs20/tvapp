@@ -1,9 +1,9 @@
 {
-  "name": "latinotv",
+  "name": "latinotv-cinecalidad",
   "version": "2.3.0",
   "description": "LatinoTV - catálogo y reproductor de video para TizenBrew",
   "packageType": "app",
-  "appName": "LatinoTV-Cinecalidad",
+  "appName": "LatinoTV Cinecalidad",
   "appPath": "app/index.html",
   "keys": [
     "MediaPlayPause",
