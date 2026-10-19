@@ -11,6 +11,10 @@ La app funciona como CloudStream: inicio con catálogos, búsqueda, ficha de det
 Esta app **no incluye, aloja ni enlaza contenido protegido**. Es una interfaz genérica que reproduce las fuentes que tú agregues.
 
 - El proveedor **Cine libre** usa cortometrajes de Blender Foundation con licencia *Creative Commons*.
+- El proveedor **Cine clásico (dominio público)** trae películas de dominio público
+  desde [Internet Archive](https://archive.org) (colección *feature_films*), con una
+  fila en español incluida; funciona igual que un proveedor de CloudStream pero con
+  contenido legal (port del plugin *InternetArchiveProvider* de `recloudstream/extensions`).
 - Agrega únicamente fuentes de las que tengas derechos, o que tengan licencia abierta o sean de dominio público.
 - Los repositorios de extensiones de terceros que apuntan a sitios de streaming no autorizados (Cuevana, Pelisplus, Cinecalidad, AnimeFLV, etc.) quedan fuera del alcance de este proyecto.
 - Los subtítulos se buscan en la API pública de **OpenSubtitles**; respeta sus términos de uso.
@@ -36,7 +40,9 @@ app/
     util.js                  # helpers (esc, fetch con timeout, toast…)
     store.js                 # perfiles, repos, ajustes y progreso en localStorage
     providers.js             # registro de proveedores
+
     providers/demo.js        # cine libre + serie de prueba con episodios
+    providers/archive.js     # cine de dominio público (Internet Archive)
     providers/jellyfin.js    # servidor Jellyfin propio
     providers/m3u.js         # listas M3U / IPTV
     repos.js                 # carga de repo.json externos (proveedores JS y catálogos)

@@ -14,6 +14,7 @@
 
   var DEFAULT_ENABLED = {
     demo: true,
+    archive: true,
     jellyfin: false,
     m3u: false
   };
