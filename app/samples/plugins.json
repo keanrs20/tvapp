@@ -13,5 +13,13 @@
     "language": "es",
     "tvTypes": ["Movie"],
     "scriptUrl": "mi-proveedor.js"
+  },
+  {
+    "name": "Cinecalidad (Storm-ext Converted)",
+    "description": "Peliculas y series online en espanol latino - Migracion desde Storm-ext Android",
+    "language": "es",
+    "tvTypes": ["Movie", "TvSeries"],
+    "iconUrl": "https://www.google.com/s2/favicons?domain=cinecalidad.to&sz=64",
+    "scriptUrl": "CinecalidadProvider.js"
   }
 ]
