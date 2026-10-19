@@ -2,6 +2,20 @@
 (function (global) {
   'use strict';
 
+  /* Version check: si la versión guardada no coincide, borra todo y recarga */
+  var APP_VERSION = '2026-10-19-cinecalidad';
+  try {
+    var savedVer = localStorage.getItem('_ltv_ver');
+    if (savedVer !== APP_VERSION) {
+      localStorage.removeItem('latinotv.state');
+      localStorage.removeItem('latinotv.cachever');
+      sessionStorage.clear();
+      localStorage.setItem('_ltv_ver', APP_VERSION);
+      /* Force reload with cache bust */
+      window.location.href = window.location.pathname + '?v=' + Date.now();
+    }
+  } catch(e) {}
+
   var KEY = 'latinotv.state';
   var LEGACY_KEY = 'latinotv.state.v1';
   var VERSION = 2;
