@@ -4,19 +4,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>LatinoTV v2.3.1-Cinecalidad</title>
-  <link rel="stylesheet" href="css/style.css?v=ccb82fe">
+  <link rel="stylesheet" href="css/style.css?v=15a085f">
   <script>
-    /* Cache-buster: si la versión en localStorage no coincide, borra todo y recarga */
+    /* Force reload if cached JS is older than expected */
     (function() {
-      var CURRENT = 'v2.3.1-cinecalidad';
+      var EXPECTED = '2026-10-19-cinecalidad';
       try {
-        var cached = localStorage.getItem('latinotv.cachever');
-        if (cached !== CURRENT) {
-          /* Borrar datos viejos de la app */
+        var saved = sessionStorage.getItem('_ltv_ver');
+        if (!saved || saved !== EXPECTED) {
+          sessionStorage.setItem('_ltv_ver', EXPECTED);
+          /* Clear all storage to remove old state */
           try { localStorage.removeItem('latinotv.state'); } catch(e){}
-          try { sessionStorage.clear(); } catch(e){}
-          localStorage.setItem('latinotv.cachever', CURRENT);
-          location.reload(true);
+          try { localStorage.removeItem('latinotv.cachever'); } catch(e){}
+          /* Force hard reload bypassing cache */
+          location.href = location.pathname + '?t=' + Date.now();
         }
       } catch(e) {}
     })();
@@ -69,19 +70,19 @@
 
   <div id="toast" class="toast"></div>
 
-  <script src="vendor/hls.min.js?v=ccb82fe"></script>
-  <script src="vendor/pako.min.js?v=ccb82fe"></script>
-  <script src="js/util.js?v=ccb82fe"></script>
-  <script src="js/store.js?v=ccb82fe"></script>
-  <script src="js/providers.js?v=ccb82fe"></script>
-  <script src="js/providers/demo.js?v=ccb82fe"></script>
-  <script src="js/providers/jellyfin.js?v=ccb82fe"></script>
-  <script src="js/providers/m3u.js?v=ccb82fe"></script>
-  <script src="js/providers/archive.js?v=ccb82fe"></script>
-  <script src="js/repos.js?v=ccb82fe"></script>
-  <script src="js/subtitles.js?v=ccb82fe"></script>
-  <script src="js/spatial.js?v=ccb82fe"></script>
-  <script src="js/player.js?v=ccb82fe"></script>
-  <script src="js/app.js?v=ccb82fe"></script>
+  <script src="vendor/hls.min.js?v=15a085f"></script>
+  <script src="vendor/pako.min.js?v=15a085f"></script>
+  <script src="js/util.js?v=15a085f"></script>
+  <script src="js/store.js?v=15a085f"></script>
+  <script src="js/providers.js?v=15a085f"></script>
+  <script src="js/providers/demo.js?v=15a085f"></script>
+  <script src="js/providers/jellyfin.js?v=15a085f"></script>
+  <script src="js/providers/m3u.js?v=15a085f"></script>
+  <script src="js/providers/archive.js?v=15a085f"></script>
+  <script src="js/repos.js?v=15a085f"></script>
+  <script src="js/subtitles.js?v=15a085f"></script>
+  <script src="js/spatial.js?v=15a085f"></script>
+  <script src="js/player.js?v=15a085f"></script>
+  <script src="js/app.js?v=15a085f"></script>
 </body>
 </html>
